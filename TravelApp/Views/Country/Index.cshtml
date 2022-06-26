@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Country>
+
+<h2>Countries</h2>
+<style>
+    #countries td, #countries th {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    #countries tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    #countries tr:hover {
+        background-color: #ddd;
+    }
+</style>
+<table id="countries">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Region</th>
+        <th>Population</th>
+    </tr>
+
+    @foreach (var country in Model)
+    {
+        <tr>
+            <td><a href=/Country/ViewCountry/@country.Id>@country.Id</td>
+            <td>@country.Name</td>
+            <td>@country.Region</td>
+            <td>@country.Population</td>
+        </tr>
+    }
+</table>

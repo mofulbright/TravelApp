@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Country>
+<h2>Your Travel List</h2>
+
+<table class="table table-bordered table-striped" style="width:100%">  
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Region</th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var country in Model)
+    {
+        <tr>
+            <td>@country.Id</td>
+            <td>@country.Name</td>
+            <td>@country.Region</td>
+            <td>
+                <div>
+                    <a asp-controller="CountryWant" asp-action="Delete" asp-route-id="@country.Id">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
