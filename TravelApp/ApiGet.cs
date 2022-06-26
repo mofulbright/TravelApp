@@ -51,7 +51,7 @@ namespace TravelApp
             var endpoint = $"https://pixabay.com/api/?key={apiKey}";
             var result = client.GetStringAsync(endpoint).Result;
             dynamic myModel = new ExpandoObject();
-            var idk = 4;
+            var idk = 5;
         }
     }
 }
