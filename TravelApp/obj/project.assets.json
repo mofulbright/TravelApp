@@ -1906,11 +1906,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\moful\\Desktop\\Repos\\TravelApp\\TravelApp\\TravelApp.csproj",
+      "projectUniqueName": "C:\\Users\\moful\\OneDrive\\Desktop\\Repos\\TravelApp\\TravelApp\\TravelApp.csproj",
       "projectName": "TravelApp",
-      "projectPath": "C:\\Users\\moful\\Desktop\\Repos\\TravelApp\\TravelApp\\TravelApp.csproj",
+      "projectPath": "C:\\Users\\moful\\OneDrive\\Desktop\\Repos\\TravelApp\\TravelApp\\TravelApp.csproj",
       "packagesPath": "C:\\Users\\moful\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\moful\\Desktop\\Repos\\TravelApp\\TravelApp\\obj\\",
+      "outputPath": "C:\\Users\\moful\\OneDrive\\Desktop\\Repos\\TravelApp\\TravelApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\moful\\AppData\\Roaming\\NuGet\\NuGet.Config",

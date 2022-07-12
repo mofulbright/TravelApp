@@ -2,8 +2,9 @@
 
 namespace TravelApp.ViewModels
 {
-    public class CountryView
+    public class CountryViewModel
     {
-        
+        ApiGet api = new ApiGet();
+
     }
 }

@@ -7,7 +7,6 @@ namespace TravelApp.Controllers
     public class CountryWantController : Controller
     {
         private readonly ApplicationDbContext _db;
-        HttpClient client = new HttpClient();
         ApiGet api = new ApiGet();
 
         public CountryWantController(ApplicationDbContext db)
@@ -23,9 +22,18 @@ namespace TravelApp.Controllers
 
         public IActionResult Add(string id)
         {
-            _db.TravelList.Add(api.GetOne(id));
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                _db.TravelList.Add(api.GetOne(id));
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Custom", "Country already in TravelList");
+                TempData["Message"] = "Country already in TravelList";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Delete(string id)
