@@ -1,16 +1,22 @@
 ﻿@model Country
+<body style="background-image: src@Model.Flag;">
 <h1 align="center">@Model.Name</h1>
-
+<img align="right" width="450" height="250" src="@Model.Flag" alt="@Model.Name flag"/>
 <h4>About</h4>
 <ul>
-    <li>ccn3 code: @Model.Id</li>
-    <li>Official Name: @Model.OfficialName</li>
-    <li>Region: @Model.Region</li>
-    <li>Population: @Model.Population</li>
-    <li>Capital: @Model.Capital</li>
-    <li><a asp-controller="CountryWant" asp-action="Add" asp-route-Id="@Model.Id">Add to Travel List</a></li>
+    <li>ccn3 code: <strong>@Model.Id</strong></li>
+    <li>Official Name: <strong>@Model.OfficialName</strong></li>
+    <li>Region: <strong>@Model.Region</strong></li>
+    <li>Population: <strong>@Model.Population</strong></li>
+    <li>Capital: <strong>@Model.Capital</strong></li>
+    <div style="display: block;font-size:18px">
+        @using (Html.BeginForm("Add", "CountryWant", "Post"))
+        {
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <input type="submit" onclick="return confirm('Add @Model.Name to your Travel List?')" value="Add to Travel List" />
+        }
+    </div>
 </ul>
-<img align="middle" width="450" height="250" src="@Model.Flag" alt="@Model.Name flag" />
 <iframe
   width="450"
   height="250"
@@ -20,3 +26,17 @@
   src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAbdbhH3D7PhN-y2NRnnJED-2uZiJ_uR1Y&q={@Model.Name}"
   allowfullscreen>
 </iframe>
+@*<div id="carousel">
+    @foreach(var picture in @Model.Pictures)
+    {
+        <div class="slide">
+            <img width="450" height="250" src="@picture.contentUrl">
+        </div>
+    }
+</div>*@ 
+<a href="/Country/ViewPictures/@Model.Id"><h2>View more Pictures ==></h2></a>
+@foreach(var picture in @Model.Pictures.Take(3))
+{
+    <a href="@picture.pageUrl"><img width="207" height="115" src="@picture.contentUrl"></a>
+}
+</body>

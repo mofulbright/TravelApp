@@ -20,11 +20,11 @@ namespace TravelApp.Controllers
             return View(objCountryWantList);
         }
 
-        public IActionResult Add(string id)
+        public IActionResult Add(Country country)
         {
             try
             {
-                _db.TravelList.Add(api.GetOne(id));
+                _db.TravelList.Add(api.GetOne(country.Id));
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -36,14 +36,9 @@ namespace TravelApp.Controllers
             }
         }
 
-        public IActionResult Delete(string id)
+        public IActionResult Delete(Country country)
         {
-            var obj = _db.TravelList.Find(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _db.TravelList.Remove(obj);
+            _db.TravelList.Remove(country);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

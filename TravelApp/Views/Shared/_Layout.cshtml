@@ -28,9 +28,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="CountryWant" asp-action="Index">Travel List</a>
                         </li>
-                    </ul>
-                    <form class="d-flex">
-                    </form>
+                    </ul>              
+                @using (Html.BeginForm("SearchCountry", "Country", "Post"))
+                {
+                <input type="text" placeholder="Enter a Country" id="search-fld" name="searchValue">
+                <input type="submit" value="Search" />
+                }
                 </div>
             </div>
         </nav>

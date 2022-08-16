@@ -1,0 +1,11 @@
+﻿@model Country
+<h1>@Model.Name Pictures</h1>
+<div id="carousel">
+    @foreach(var picture in @Model.Pictures)
+    {
+        <div class="slide">
+            <img width="900" height="500" src="@picture.contentUrl">
+        </div>
+    }
+</div> 
+

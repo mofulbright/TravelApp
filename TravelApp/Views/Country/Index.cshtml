@@ -13,9 +13,18 @@
         background-color: #ddd;
     }
 </style>
-<table id="countries">
+<p1 style="word-spacing:30px">Order: 
+    <a href="/Country/Index?option=0">Id</a> 
+    <a href="/Country/Index?option=1">Id(desc.)</a>  
+    <a href="/Country/Index?option=2">Population</a>
+    <a href="/Country/Index?option=3">Population(desc.)</a>
+    <a href="/Country/Index?option=4">Name</a>
+    <a href="/Country/Index?option=5">Region</a>
+</p1>
+<table class="table table-bordered table-striped sortable jquery-tablesorter" style="width:100%">
     <tr>
-        <th>ID</th>
+        <th></th>
+        <th scope="col" class="headerSort" role="columnheader button" title="Sort ascending">ID</th>
         <th>Name</th>
         <th>Region</th>
         <th>Population</th>
@@ -24,6 +33,7 @@
     @foreach (var country in Model)
     {
         <tr>
+            <td><img src="@country.Flag" height="100" width="166" /></td>
             <td><a href=/Country/ViewCountry/@country.Id>@country.Id</a></td>
             <td>@country.Name</td>
             <td>@country.Region</td>

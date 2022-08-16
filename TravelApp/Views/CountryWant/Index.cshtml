@@ -3,6 +3,7 @@
 
 <table class="table table-bordered table-striped" style="width:100%">  
     <tr>
+        <th></th>
         <th>Id</th>
         <th>Name</th>
         <th>Region</th>
@@ -13,12 +14,19 @@
     @foreach (var country in Model)
     {
         <tr>
+            <td><a href="/Country/ViewCountry/@country.Id">
+                <img width="166", height="100" src="@country.Flag" />
+                </a></td>
             <td><a href=/Country/ViewCountry/@country.Id>@country.Id</td>
             <td>@country.Name</td>
             <td>@country.Region</td>
             <td>
-                <div>
-                    <a asp-controller="CountryWant" asp-action="Delete" asp-route-id="@country.Id">Delete</a>
+                <div style="display: block;font-size:14px">
+                    @using (Html.BeginForm("Delete", "CountryWant", "Post"))
+                    {
+                        <input type="hidden" asp-for="@country.Id" value="@country.Id" />
+                        <input type="submit" onclick="return confirm('Delete @country.Name from your Travel List?')" value="Delete this country" />
+                    }
                 </div>
             </td>
         </tr>
