@@ -7,6 +7,7 @@
         public string pageUrl { get; set; }
         public int width { get; set; }
         public int height { get; set; }
-        //public string description { get; set; }
+        
+        public string description { get; set; }
     }
 }

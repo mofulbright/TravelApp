@@ -12,6 +12,7 @@ namespace TravelApp
             var endpoint = "https://restcountries.com/v3.1/all";
             var result = client.GetStringAsync(endpoint).Result;
             var json = JArray.Parse(result);
+
             IEnumerable<Country> countries = json.Select(p => new Country
             {
                 Id = (string?)p["ccn3"],
@@ -21,7 +22,6 @@ namespace TravelApp
                 Population = (int?)p["population"]
             });
             
-            //return allCountries.OrderBy(x => x.Name);
             switch (option)
             {
                 case "0":
@@ -48,23 +48,6 @@ namespace TravelApp
             //return countries;
         }
 
-        public IEnumerable<Country> OrderBy(IEnumerable<Country> countries, int option)
-        {
-            switch (option)
-            {
-                case 0:
-                    countries.OrderBy(x => x.Id);
-                    break;
-                case 1:
-                    countries.OrderBy(x => x.Population);
-                    break;
-                case 2:
-                    countries.OrderBy(x => x.Name);
-                    break;
-            }
-            return countries;
-        }
-
         public Country GetOne(string id)
         {
             var endpoint = $"https://restcountries.com/v3.1/alpha/{id}";
@@ -80,7 +63,7 @@ namespace TravelApp
                 Flag = (string?)json[0]["flags"]["png"],
                 OfficialName = (string?)json[0]["name"]["official"],
                 Capital = (string?)json[0]["capital"][0],
-                Pictures = GetPictureAsync((string?)json[0]["name"]["common"]).Result
+                Pictures = GetPictureAsync((string?)json[0]["name"]["common"])
             };
             return singleCountry;
         }
@@ -101,7 +84,7 @@ namespace TravelApp
             return allCountries.OrderBy(x => x.Name);
         }
 
-        public static async Task<IEnumerable<Picture>> GetPictureAsync(string searchString)
+        public static IEnumerable<Picture> GetPictureAsync(string searchString)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage
@@ -114,17 +97,19 @@ namespace TravelApp
         { "X-RapidAPI-Host", "bing-image-search1.p.rapidapi.com" },
     },
             };
-            using (var response = await client.SendAsync(request))
+            using (var response = client.SendAsync(request).Result)
             {
                 response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
+                var body = response.Content.ReadAsStringAsync().Result;
                 var json = JObject.Parse(body)["value"].ToArray();
                 IEnumerable<Picture> pictures = json.Select(p => new Picture
                 {
                     contentUrl = (string)p["contentUrl"],
                     height = (int)p["height"],
                     width = (int)p["width"],
-                    pageUrl = (string)p["hostPageUrl"]
+                    pageUrl = (string)p["hostPageUrl"],
+                    description = (string)p["name"]
+
                 });
                 return pictures;
             }

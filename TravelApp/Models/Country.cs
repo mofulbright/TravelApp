@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TravelApp.Models
 {
@@ -10,8 +12,9 @@ namespace TravelApp.Models
         public int? Population { get; set; }
         public string? Flag { get; set; }
         public string? Capital { get; set; }
+
         public string? OfficialName { get; set; }
-        [NotMapped]
-        public IEnumerable<Picture>? Pictures { get; set; }
+        //public IEnumerable<Picture>? Pictures { get; set; }
+        public IEnumerable<Picture> Pictures { get; set; }
     }
 }

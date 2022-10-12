@@ -26,9 +26,15 @@ namespace TravelApp.Controllers
             return View(api.Search(searchValue));
         }
 
+        public IActionResult DoSomething(string date)
+        {
+            return View(date);
+        }
+
         public IActionResult ViewPictures(string id)
         {
             return View(api.GetOne(id));
         }
+        
     }
 }

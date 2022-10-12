@@ -17,6 +17,7 @@
         }
     </div>
 </ul>
+
 <iframe
   width="450"
   height="250"
@@ -35,6 +36,7 @@
     }
 </div>*@ 
 <a href="/Country/ViewPictures/@Model.Id"><h2>View more Pictures ==></h2></a>
+
 @foreach(var picture in @Model.Pictures.Take(3))
 {
     <a href="@picture.pageUrl"><img width="207" height="115" src="@picture.contentUrl"></a>
