@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Country>
+﻿@model IEnumerable<Country2>
 
 <h2>Countries</h2>
 <style>
@@ -33,11 +33,11 @@
     @foreach (var country in Model)
     {
         <tr>
-            <td><img src="@country.Flag" height="100" width="166" /></td>
-            <td><a href=/Country/ViewCountry/@country.Id>@country.Id</a></td>
-            <td>@country.Name</td>
-            <td>@country.Region</td>
-            <td>@country.Population</td>
+            <td><img src="@country.flags.png" height="100" width="166" /></td>
+            <td><a href=/Country/ViewCountry/@country.ccn3>@country.ccn3</a></td>
+            <td>@country.name.common</td>
+            <td>@country.region</td>
+            <td>@country.population</td>
         </tr>
     }
 </table>

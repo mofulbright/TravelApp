@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Country>
+﻿@model IEnumerable<Country2>
 <h1>Search Results</h1>
 
 <table class="table table-bordered table-striped" style="width:100%">  
     <tr>
-        <th></th>
+        <th>Flag</th>
         <th>Id</th>
         <th>Name</th>
         <th>Region</th>
@@ -13,12 +13,12 @@
     @foreach (var country in Model)
     {
         <tr>
-            <td><a href="/Country/ViewCountry/@country.Id">
-                <img width="166", height="100" src="@country.Flag" />
+            <td><a href="/Country/ViewCountry/@country.ccn3">
+                <img width="166", height="100" src="@country.flags.png" />
                 </a></td>
-            <td><a href=/Country/ViewCountry/@country.Id>@country.Id</td>
-            <td><h2>@country.Name</h2></td>
-            <td>@country.Region</td>
+            <td><a href=/Country/ViewCountry/@country.ccn3>@country.ccn3</td>
+            <td><h2>@country.name.common</h2></td>
+            <td>@country.region</td>
         </tr>
     }
 </table>

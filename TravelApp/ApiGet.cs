@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Dynamic;
+using System.Text.Json;
 using TravelApp.Models;
 
 namespace TravelApp
@@ -7,40 +8,40 @@ namespace TravelApp
     public class ApiGet
     {
         HttpClient client = new HttpClient();
-        public IEnumerable<Country> GetAll(string option)
+        public IEnumerable<Country2> GetAll(string option)
         {
             var endpoint = "https://restcountries.com/v3.1/all";
             var result = client.GetStringAsync(endpoint).Result;
-            var json = JArray.Parse(result);
-
-            IEnumerable<Country> countries = json.Select(p => new Country
-            {
-                Id = (string?)p["ccn3"],
-                Name = (string?)p["name"]["common"],
-                Region = (string?)p["region"],
-                Flag = (string?)p["flags"]["png"],
-                Population = (int?)p["population"]
-            });
+            var json = JArray.Parse(result).ToString();
+            IEnumerable<Country2> countries = JsonSerializer.Deserialize<List<Country2>>(json);
+            //IEnumerable<Country> countries = json.Select(p => new Country
+            //{
+            //    Id = (string?)p["ccn3"],
+            //    Name = (string?)p["name"]["common"],
+            //    Region = (string?)p["region"],
+            //    Flag = (string?)p["flags"]["png"],
+            //    Population = (int?)p["population"]
+            //});
             
             switch (option)
             {
                 case "0":
-                    return countries.OrderBy(x => x.Id);
+                    return countries.OrderBy(x => x.ccn3);
                     break;
                 case "1":
-                    return countries.OrderByDescending(x => x.Id);
+                    return countries.OrderByDescending(x => x.ccn3);
                     break;
                 case "2":
-                    return countries.OrderBy(x => x.Population);
+                    return countries.OrderBy(x => x.population);
                     break;
                 case "3":
-                    return countries.OrderByDescending(x => x.Population);
+                    return countries.OrderByDescending(x => x.population);
                     break;
                 case "4":
-                    return countries.OrderBy(x => x.Name);
+                    return countries.OrderBy(x => x.name.common);
                     break;
                 case "5":
-                    return countries.OrderBy(x => x.Region);
+                    return countries.OrderBy(x => x.region);
                     break;
                 default: return countries;
                     break;
@@ -48,43 +49,45 @@ namespace TravelApp
             //return countries;
         }
 
-        public Country GetOne(string id)
+        public Country2 GetOne(string id)
         {
             var endpoint = $"https://restcountries.com/v3.1/alpha/{id}";
             var result = client.GetStringAsync(endpoint).Result;
-            var json = JArray.Parse(result);
-
-            Country singleCountry = new Country()
-            {
-                Id = (string?)json[0]["ccn3"],
-                Name = (string?)json[0]["name"]["common"],
-                Region = (string?)json[0]["subregion"],
-                Population = (int?)json[0]["population"],
-                Flag = (string?)json[0]["flags"]["png"],
-                OfficialName = (string?)json[0]["name"]["official"],
-                Capital = (string?)json[0]["capital"][0],
-                Pictures = GetPictureAsync((string?)json[0]["name"]["common"])
-            };
-            return singleCountry;
+            var json = JArray.Parse(result).ToString();
+            var country = JsonSerializer.Deserialize<List<Country2>>(json);
+            //    Country singleCountry = new Country()
+            //    {
+            //        Id = (string?)json[0]["ccn3"],
+            //        Name = (string?)json[0]["name"]["common"],
+            //        Region = (string?)json[0]["subregion"],
+            //        Population = (int?)json[0]["population"],
+            //        Flag = (string?)json[0]["flags"]["png"],
+            //        OfficialName = (string?)json[0]["name"]["official"],
+            //        Capital = (string?)json[0]["capital"][0],
+            //        Pictures = GetPictureAsync((string?)json[0]["name"]["common"])
+            //    };
+            country[0].pictures = GetPictures(country[0].name.common);
+            return country[0];
         }
 
-        public IEnumerable<Country> Search(string name)
+        public IEnumerable<Country2> Search(string name)
         {
             var endpoint = $"https://restcountries.com/v3.1/name/{name}";
             var result = client.GetStringAsync(endpoint).Result;
-            var json = JArray.Parse(result);
-            IEnumerable<Country> allCountries = json.Select(p => new Country
-            {
-                Id = (string?)p["ccn3"],
-                Name = (string?)p["name"]["common"],
-                Region = (string?)p["subregion"],
-                Flag = (string?)p["flags"]["png"],
-                Population = (int?)p["population"]               
-            });
-            return allCountries.OrderBy(x => x.Name);
+            var json = JArray.Parse(result).ToString();
+            var country = JsonSerializer.Deserialize<List<Country2>>(json);
+            //IEnumerable<Country> allCountries = json.Select(p => new Country
+            //{
+            //    Id = (string?)p["ccn3"],
+            //    Name = (string?)p["name"]["common"],
+            //    Region = (string?)p["subregion"],
+            //    //Flag = (string?)p["flags"]["png"],
+            //    //Population = (int?)p["population"]
+            //});
+            return country.OrderBy(x => x.name.common);
         }
 
-        public static IEnumerable<Picture> GetPictureAsync(string searchString)
+        public static IEnumerable<Picture> GetPictures(string searchString)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage

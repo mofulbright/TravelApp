@@ -8,6 +8,7 @@ namespace TravelApp.Controllers
     {
         private readonly ApplicationDbContext _db;
         ApiGet api = new ApiGet();
+        Country countryDb = new Country();
 
         public CountryWantController(ApplicationDbContext db)
         {
@@ -20,11 +21,17 @@ namespace TravelApp.Controllers
             return View(objCountryWantList);
         }
 
-        public IActionResult Add(Country country)
+        public IActionResult Add(Country2 country)
         {
+            countryDb.Flag = country.flags.png;
+            countryDb.Id = country.ccn3;
+            countryDb.Name = country.name.common;
+            countryDb.Region = country.region;
+                
+           
             try
             {
-                _db.TravelList.Add(api.GetOne(country.Id));
+                _db.TravelList.Add(countryDb);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -38,7 +45,8 @@ namespace TravelApp.Controllers
 
         public IActionResult Delete(Country country)
         {
-            _db.TravelList.Remove(country);
+            
+            _db.TravelList.Remove(countryDb);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

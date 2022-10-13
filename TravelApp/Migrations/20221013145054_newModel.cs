@@ -4,7 +4,7 @@
 
 namespace TravelApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class newModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,10 +15,7 @@ namespace TravelApp.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Region = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Population = table.Column<int>(type: "int", nullable: true),
-                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Capital = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OfficialName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,19 +1,31 @@
-﻿@model Country
+﻿@model Country2
 <body style="background-image: src@Model.Flag;">
-<h1 align="center">@Model.Name</h1>
-<img align="right" width="450" height="250" src="@Model.Flag" alt="@Model.Name flag"/>
+<h1 align="center">@Model.name.common</h1>
+<img align="right" width="450" height="250" src="@Model.flags.png" alt="@Model.name.common flag"/>
 <h4>About</h4>
 <ul>
-    <li>ccn3 code: <strong>@Model.Id</strong></li>
-    <li>Official Name: <strong>@Model.OfficialName</strong></li>
-    <li>Region: <strong>@Model.Region</strong></li>
-    <li>Population: <strong>@Model.Population</strong></li>
-    <li>Capital: <strong>@Model.Capital</strong></li>
+    <li>ccn3 code: <strong>@Model.ccn3</strong></li>
+    <li>Official Name: <strong>@Model.name.official</strong></li>
+    <li>Region: <strong>@Model.region</strong></li>
+    <li>Population: <strong>@Model.population</strong></li>
+    @if (Model.capital != null)
+    {
+        <li>Capital: <strong>@Model.capital[0]</strong></li>
+    }
+    else
+    {
+        <li>Capital: <strong>None</strong></li>
+    }
+   
+        
     <div style="display: block;font-size:18px">
         @using (Html.BeginForm("Add", "CountryWant", "Post"))
         {
-            <input type="hidden" asp-for="Id" value="@Model.Id" />
-            <input type="submit" onclick="return confirm('Add @Model.Name to your Travel List?')" value="Add to Travel List" />
+            <input type="hidden" asp-for="ccn3" value="@Model.ccn3" />
+            <input type="hidden" asp-for="name.common" value="@Model.name.common">
+            <input type="hidden" asp-for="region" value="@Model.region">
+            <input type="hidden" asp-for="flags.png" value="@Model.flags.png">
+            <input type="submit" onclick="return confirm('Add @Model.name.common to your Travel List?')" value="Add to Travel List" />
         }
     </div>
 </ul>
@@ -24,7 +36,7 @@
   align="right"
   frameborder="0" style="border:0"
   referrerpolicy="no-referrer-when-downgrade"
-  src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAbdbhH3D7PhN-y2NRnnJED-2uZiJ_uR1Y&q={@Model.Name}"
+  src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAbdbhH3D7PhN-y2NRnnJED-2uZiJ_uR1Y&q={@Model.name.common}"
   allowfullscreen>
 </iframe>
 @*<div id="carousel">
@@ -35,9 +47,9 @@
         </div>
     }
 </div>*@ 
-<a href="/Country/ViewPictures/@Model.Id"><h2>View more Pictures ==></h2></a>
+<a href="/Country/ViewPictures/@Model.ccn3"><h2>View more Pictures ==></h2></a>
 
-@foreach(var picture in @Model.Pictures.Take(3))
+@foreach(var picture in @Model.pictures.Take(3))
 {
     <a href="@picture.pageUrl"><img width="207" height="115" src="@picture.contentUrl"></a>
 }
