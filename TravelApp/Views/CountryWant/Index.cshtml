@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Country>
+﻿@model IEnumerable<CountryDb>
 <h2>Your Travel List</h2>
 <table class="table table-bordered table-striped" style="width:100%">  
     <tr>
@@ -24,6 +24,9 @@
                     @using (Html.BeginForm("Delete", "CountryWant", "Post"))
                     {
                         <input type="hidden" asp-for="@country.Id" value="@country.Id" />
+                        <input type="hidden" asp-for-"@country.Flag" value="@country.Flag">
+                        <input type="hidden" asp-for="@country.Region" value="@country.Region">
+                        <input type="hidden" asp-for ="@country.Name" value="@country.Name">
                         <input type="submit" onclick="return confirm('Delete @country.Name from your Travel List?')" value="Delete this country" />
                     }
                 </div>

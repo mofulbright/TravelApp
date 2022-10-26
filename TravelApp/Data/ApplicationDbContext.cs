@@ -8,6 +8,6 @@ namespace TravelApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<Country> TravelList { get; set; }
+        public DbSet<CountryDb> TravelList { get; set; }
     }
 }
